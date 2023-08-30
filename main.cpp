@@ -40,7 +40,8 @@ struct rangeNode {
     }
 
     void print() {
-        std::cout << "[ " << startPoint << ", " << endPoint << "] :" << value;
+        std::cout << "[ " << startPoint << ", " << endPoint << "]: " << value;
+        if(isLeaf) { std::cout << " (leaf)"; }
     }
 };
 
@@ -54,6 +55,31 @@ public:
         root = new rangeNode(0, n - 1);
         buildTree(arr, root, (n - 1)/2);
     }
+
+    void update(int startPoint, int endPoint, int newValue) {
+
+    }
+
+    rangeNode* assignRange(rangeNode *curNode, int startPoint, int endPoint, int newValue) {
+        return NULL;
+    }
+
+    void mergeSameValues(rangeNode *curRange) {
+        if(curRange == NULL) { return; }
+
+    }
+
+    int getIndex(int i) {
+        rangeNode *cur = root;
+        while(!cur->isLeaf) {
+            assert(cur->contains(i));
+            if(cur->left && cur->left->contains(i)) { cur = cur->left; }
+            else { cur = cur->right; }
+        }
+        return cur->value;
+    }
+
+
 
     void buildTree(std::vector<int>& arr, rangeNode *curRange, int idx) {
         // l, r are the 
@@ -100,7 +126,8 @@ int main(){
     while(n--) { std::cin >> int_temp; arr.push_back(int_temp); }
 
     blockArray obj = blockArray(arr);
-    obj.printTree();
+    // obj.printTree();
+    std::cout << obj.getIndex(7) << '\n';
 
     std::string str_temp;
     int lower, upper, new_val, idx;
