@@ -75,6 +75,10 @@ struct rangeNode {
         return startPoint <= other->endPoint && other->startPoint <= endPoint;
     }
 
+    bool hasOverlap(int newStartPoint, int newEndPoint) {
+        return !(startPoint > newEndPoint && endPoint < startPoint);
+    }
+
     bool is_leaf() {
         return !left && !right;
     }
@@ -110,6 +114,7 @@ public:
     void assignRange(rangeNode *curNode, int startPoint, int endPoint, int newValue) {
         // std::cout << startPoint << ": " << endPoint << '\n';
         if(!curNode || startPoint > endPoint) { return; }
+        if(!curNode->hasOverlap(startPoint, endPoint) || (curNode->containsInterval(startPoint, endPoint) && curNode->value == newValue)) { return; }
         if(curNode->isExactInterval(startPoint, endPoint)) {
             curNode->updateLeaf(newValue);
             return;
@@ -130,8 +135,6 @@ public:
             curNode->left = newLeft;
             curNode->right = newRight;
         }
-
-
     }
 
     int getIndex(int i) {
@@ -181,16 +184,12 @@ public:
             std::cout << '\n';
         }
         
-        
-
         inorderPrint(node->right, onlyLeafs);
     }
 
 };
 
 int main(){
-    rangeNode *n1 = new rangeNode(0, 10, 3);
-    rangeNode *n2 = new rangeNode(2, 3, 5);
 
 
     int int_temp, n; std::cin >> n;
@@ -199,15 +198,16 @@ int main(){
 
     blockArray obj = blockArray(arr);
     // obj.printTree();
-    obj.update(0, arr.size() - 1, 10);
+    obj.update(0, arr.size() - 1, 100);
     obj.printLeaves();
     std::cout << '\n';
 
     n = arr.size();
     for(int i = 0; i < n; i++) {
+        std::cout << i << " level\n";
         obj.update(i, i, i+10);
-        obj.printTree();
-        // obj.printLeaves();
+        // obj.printTree();
+        obj.printLeaves();
         std::cout << '\n';
     }
 
