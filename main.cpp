@@ -202,14 +202,14 @@ int main(){
     obj.update(0, arr.size() - 1, 10);
     obj.printLeaves();
     std::cout << '\n';
-    // obj.printTree();
 
-    // n = arr.size();
-    // for(int i = 0; i < n; i++) {
-    //     obj.update(i, i, i);
-    //     obj.printTree();
-    //     std::cout << '\n';
-    // }
+    n = arr.size();
+    for(int i = 0; i < n; i++) {
+        obj.update(i, i, i+10);
+        obj.printTree();
+        // obj.printLeaves();
+        std::cout << '\n';
+    }
 
 
 
