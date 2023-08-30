@@ -32,6 +32,25 @@ struct rangeNode {
         left = right = NULL;
     }
 
+    rangeNode* lowerBound(int point) {
+        rangeNode* cur = left;
+        while(left && left->contains(point)) { cur = cur->left; }
+        return cur;
+    }
+
+    rangeNode* upperBound(int point) {
+        rangeNode* cur = right;
+        while(right && right->contains(point)) { cur = cur->right; }
+        return cur;
+    }
+
+    rangeNode* splitOn(int idx) {
+        assert(contains(idx) && isLeaf);
+        rangeNode* leftNode = new rangeNode(startPoint, idx, value);
+        startPoint = idx + 1;
+        return leftNode;
+    }
+
     bool isExactInterval(int newStartPoint, int newEndPoint) {
         return startPoint == newStartPoint && newEndPoint == endPoint;
     }
@@ -54,6 +73,10 @@ struct rangeNode {
 
     bool overlaps(rangeNode *other) const {
         return startPoint <= other->endPoint && other->startPoint <= endPoint;
+    }
+
+    bool is_leaf() {
+        return !left && !right;
     }
 
     rangeNode* join(rangeNode* other, int new_value) {
@@ -85,7 +108,7 @@ public:
     }
 
     void assignRange(rangeNode *curNode, int startPoint, int endPoint, int newValue) {
-        std::cout << startPoint << ": " << endPoint << '\n';
+        // std::cout << startPoint << ": " << endPoint << '\n';
         if(!curNode || startPoint > endPoint) { return; }
         if(curNode->isExactInterval(startPoint, endPoint)) {
             curNode->updateLeaf(newValue);
@@ -93,8 +116,22 @@ public:
         }
         
         int m = curNode->mid;
-        assignRange(curNode->left, startPoint, m, newValue);
-        assignRange(curNode->right, m + 1, endPoint, newValue);
+        if(!curNode->isLeaf) {
+            assignRange(curNode->left, startPoint, m, newValue);
+            assignRange(curNode->right, m + 1, endPoint, newValue);
+        } else {
+            rangeNode *newLeft = new rangeNode(curNode->startPoint, m, curNode->value);
+            assignRange(newLeft, startPoint, m, newValue);
+            
+            rangeNode *newRight = new rangeNode(m + 1, curNode->endPoint, curNode->value);
+            assignRange(newRight, m + 1, endPoint, newValue);
+
+            curNode->isLeaf = false;
+            curNode->left = newLeft;
+            curNode->right = newRight;
+        }
+
+
     }
 
     int getIndex(int i) {
@@ -108,7 +145,6 @@ public:
     }
 
     void buildTree(std::vector<int>& arr, rangeNode *curRange, int idx) {
-        // l, r are the 
         if(curRange->startPoint == curRange-> endPoint) {
             curRange->value = arr[idx];
             return;
@@ -125,17 +161,29 @@ public:
     }
 
     void printTree() {
-        inorderPrint(root);
+        inorderPrint(root, false);
     }
 
-    void inorderPrint(rangeNode *node) {
+    void printLeaves() {
+        inorderPrint(root, true);
+    }
+
+
+
+    void inorderPrint(rangeNode *node, bool onlyLeafs) {
         if(node == NULL) { return; }
-        inorderPrint(node->left);
+        inorderPrint(node->left, onlyLeafs);
 
-        node->print();
-        std::cout << '\n';
+        if(onlyLeafs) {
+            if(node->isLeaf) { node->print(); std::cout << '\n'; }
+        } else {
+            node->print();
+            std::cout << '\n';
+        }
+        
+        
 
-        inorderPrint(node->right);
+        inorderPrint(node->right, onlyLeafs);
     }
 
 };
@@ -143,8 +191,6 @@ public:
 int main(){
     rangeNode *n1 = new rangeNode(0, 10, 3);
     rangeNode *n2 = new rangeNode(2, 3, 5);
-    std::cout << n2->overlaps(n1) << '\n';
-    std::cout << n1->contains(2) << '\n';
 
 
     int int_temp, n; std::cin >> n;
@@ -153,9 +199,20 @@ int main(){
 
     blockArray obj = blockArray(arr);
     // obj.printTree();
-    obj.update(0, 2, 10);
-    obj.update(3, 7, -10);
-    obj.printTree();
+    obj.update(0, arr.size() - 1, 10);
+    obj.printLeaves();
+    std::cout << '\n';
+    // obj.printTree();
+
+    // n = arr.size();
+    // for(int i = 0; i < n; i++) {
+    //     obj.update(i, i, i);
+    //     obj.printTree();
+    //     std::cout << '\n';
+    // }
+
+
+
     std::cout << obj.getIndex(1) << '\n';
 
     std::string str_temp;
