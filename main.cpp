@@ -6,13 +6,14 @@
 
 struct rangeNode {
     // if startPoint == endPoint or isLeaf -> leaf node
-    int startPoint, endPoint, value; // inclusive, [startPoint, endPoint] -> these indices have value
+    int startPoint, endPoint, mid, value; // inclusive, [startPoint, endPoint] -> these indices have value
     rangeNode *left, *right;
     bool isLeaf;
 
     rangeNode(int start, int end_) {
         startPoint = start;
         endPoint = end_;
+        mid = (start + end_) / 2;
         isLeaf = (startPoint == endPoint);
         value = -1;
     }
@@ -20,8 +21,31 @@ struct rangeNode {
     rangeNode(int start, int end_, int value_) {
         startPoint = start;
         endPoint = end_;
+        mid = (start + end_) / 2;
         value = value_;
-        isLeaf = startPoint == endPoint;
+        isLeaf = true;
+    }
+
+    void updateLeaf(int newValue) {
+        isLeaf = true;
+        value = newValue;
+        left = right = NULL;
+    }
+
+    bool isExactInterval(int newStartPoint, int newEndPoint) {
+        return startPoint == newStartPoint && newEndPoint == endPoint;
+    }
+
+    bool containsInterval(int newStartPoint, int newEndPoint) {
+        return startPoint <= newStartPoint && newEndPoint <= endPoint;
+    }
+
+    bool leftContainsInterval(int newStartPoint, int newEndPoint) {
+        return left && left->containsInterval(newStartPoint, newEndPoint);
+    }
+
+    bool rightContainsInterval(int newStartPoint, int newEndPoint) {
+        return right && right->containsInterval(newStartPoint, newEndPoint);
     }
 
     bool contains(int val) const {
@@ -57,16 +81,20 @@ public:
     }
 
     void update(int startPoint, int endPoint, int newValue) {
-
+        assignRange(root, startPoint, endPoint, newValue);
     }
 
-    rangeNode* assignRange(rangeNode *curNode, int startPoint, int endPoint, int newValue) {
-        return NULL;
-    }
-
-    void mergeSameValues(rangeNode *curRange) {
-        if(curRange == NULL) { return; }
-
+    void assignRange(rangeNode *curNode, int startPoint, int endPoint, int newValue) {
+        std::cout << startPoint << ": " << endPoint << '\n';
+        if(!curNode || startPoint > endPoint) { return; }
+        if(curNode->isExactInterval(startPoint, endPoint)) {
+            curNode->updateLeaf(newValue);
+            return;
+        }
+        
+        int m = curNode->mid;
+        assignRange(curNode->left, startPoint, m, newValue);
+        assignRange(curNode->right, m + 1, endPoint, newValue);
     }
 
     int getIndex(int i) {
@@ -78,8 +106,6 @@ public:
         }
         return cur->value;
     }
-
-
 
     void buildTree(std::vector<int>& arr, rangeNode *curRange, int idx) {
         // l, r are the 
@@ -127,7 +153,10 @@ int main(){
 
     blockArray obj = blockArray(arr);
     // obj.printTree();
-    std::cout << obj.getIndex(7) << '\n';
+    obj.update(0, 2, 10);
+    obj.update(3, 7, -10);
+    obj.printTree();
+    std::cout << obj.getIndex(1) << '\n';
 
     std::string str_temp;
     int lower, upper, new_val, idx;
