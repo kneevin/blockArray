@@ -45,10 +45,40 @@ public:
     int getMid() const;
 
     void printTree(bool onlyLeaves = false, bool bfs = false);
-
-    static void inorderPrint(rangeNode *node, bool onlyLeaves);
-    static void bfsPrint(rangeNode *root);
     void print(bool newLine = true);
+
+    static void inorderPrint(rangeNode *node, bool onlyLeaves) {
+        if(!node) { return; }
+        inorderPrint(node->getLeft(), onlyLeaves);
+        if(onlyLeaves) {
+            if(node->isLeaf()) { node->print(); }
+        } else {
+            node->print();
+        }
+        inorderPrint(node->getRight(), onlyLeaves);
+    }
+
+    static void bfsPrint(rangeNode *root) {
+        std::deque<rangeNode*> q;
+        int lvl = 0;
+        q.push_back(root);
+        while(!q.empty()) {
+            std::deque<rangeNode*> new_q;
+            std::cout << "Level " << lvl++ << '\n';
+            while(!q.empty()) {
+                rangeNode *cur = q.back(); q.pop_back();
+                cur->print();
+                if(cur->getLeft()) { new_q.push_back(cur->getLeft()); }
+                if(cur->getRight()) { new_q.push_back(cur->getRight()); }
+                
+            }
+            q = new_q;
+            std::cout << '\n';
+        }
+}
+
+    // static void bfsPrint(rangeNode *root);
+    
 };
 
 #endif

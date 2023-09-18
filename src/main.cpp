@@ -126,6 +126,7 @@ public:
 
 #define includeHeaders
 #if defined(withInput)
+#include <rangeNode.h>
 int main() {
     int n; std::cin >> n;
     std::vector<int> arr(n);
@@ -137,7 +138,8 @@ int main() {
 #elif defined(includeHeaders)
 #include <rangeNode.h>
 int main() {
-    std::cout << "yeah\n";
+    rangeNode *obj = new rangeNode(0, 1);
+    obj->print();
 }
 
 
