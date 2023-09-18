@@ -20,7 +20,12 @@ int main() {
     
     blockArray obj = blockArray(arr);
     obj.updateRange(65, 0, 9);
-    for(int i = 0; i < n; i++) { std::cout << i << ": " << obj.get(i) << '\n'; }
+    obj.updateRange(100, 9, 15);
+    obj.updateRange(55, 1, 14);
+    obj.updateRange(100, 0, 15);
+    obj.updateRange(-100, 0, 1);
+    // for(int i = 0; i < n; i++) { std::cout << i << ": " << obj.get(i) << '\n'; }
+    obj.bfsPrint();
 }
 
 
