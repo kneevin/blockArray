@@ -21,6 +21,7 @@ public:
     rangeNode(int value, int leftValue, int rightValue);
     rangeNode(int leftValue, int rightValue);
 
+    // rangeNode* getSubset(queryRange *qr);
     std::pair<rangeNode*, rangeNode*> splitOnRange(queryRange *qr);
     rangeNode* getContainingChild(int i);
 

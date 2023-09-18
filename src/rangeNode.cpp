@@ -41,10 +41,10 @@ std::pair<rangeNode*, rangeNode*> rangeNode::splitOnRange(queryRange *qr) {
     assert(!equals(qr));
     if(!contains(qr)) {
         if(left->equals(qr)) {
-            return {new rangeNode(qr->getValue(), qr->getLeft(), qr->getRight()), nullptr};
+            return {new rangeNode(qr->getValue(), qr->getLeft(), mid), nullptr};
         }
         if(right->equals(qr)) {
-            return {nullptr, new rangeNode(qr->getValue(), qr->getLeft(), qr->getRight())};
+            return {nullptr, new rangeNode(qr->getValue(), mid + 1, qr->getRight())};
         }
     }
     return {nullptr, nullptr};
@@ -75,9 +75,7 @@ bool rangeNode::leftContains(rangeNode *rng) const { return left->contains(rng);
 bool rangeNode::rightContains(rangeNode *rng) const { return right->contains(rng); }
 
 bool rangeNode::equals(queryRange *qr) { return lv == qr->getLeft() && rv == qr->getRight(); }
-bool rangeNode::contains(queryRange *qr) const { 
-    return contains(qr->getLeft()) && contains(qr->getRight());
-}
+bool rangeNode::contains(queryRange *qr) const { return contains(qr->getLeft()) && contains(qr->getRight()); }
 bool rangeNode::leftContains(queryRange *qr) const { return left->contains(qr); }
 bool rangeNode::rightContains(queryRange *qr) const { return right->contains(qr); }
 

@@ -14,20 +14,20 @@ blockArray::blockArray(std::vector<int>& arr) {
 }
 
 void blockArray::updateRange(int newVal, int newLeft, int newRight) {
-    queryRange* qr = new queryRange(newVal, newLeft, newRight);
+    queryRange *qr = new queryRange(newLeft, newRight, newVal);
     rangeNode *cur = root;
     updateHelper(cur, qr);
 }
 
 void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
+    if(!root) { return; }
+    qr->print();
+    root->print();
     if(root->equals(qr)) {
         root->setAsLeaf(qr->getValue());
     }
-    if(root->contains(qr->getLeft()) && root->contains(qr->getRight())) {
-        std::pair<rangeNode*, rangeNode*> pairs = root->splitOnRange(qr);
-        root->setLeft(pairs.first);
-        root->setRight(pairs.second);
-        updateHelper(root->getLeft(), )
+    if(root->contains(qr)) {
+        return;
     }
     // rangeNode* nextNode = root->getContainingChild();
 }
