@@ -4,12 +4,14 @@ cd build
 cmake ..
 make
 
-while getopts ij opt; do
+while getopts ijk opt; do
   case $opt in
     i)
       ./BLOCKARRAY < ../inputs/size8.txt;;
     j)
       ./BLOCKARRAY < ../inputs/randValues.txt;;
+    k)
+      ./BLOCKARRAY < ../inputs/perfectQuery.txt;;
   esac
 done
 

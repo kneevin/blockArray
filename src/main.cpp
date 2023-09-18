@@ -8,6 +8,7 @@
 #include <queryRange.h>
 
 blockArray processInput();
+void processQueries();
 
 #define usingQuery
 // #if defined()
@@ -46,6 +47,10 @@ int main() {
 }
 
 #endif
+
+void processQueries() {
+    
+}
 
 blockArray processInput() {
     int n; std::cin >> n;
