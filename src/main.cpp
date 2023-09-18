@@ -8,7 +8,7 @@
 #include <queryRange.h>
 
 blockArray processInput();
-void processQueries();
+void processNextQuery(blockArray& obj);
 
 #define usingQuery
 // #if defined()
@@ -17,7 +17,12 @@ void processQueries();
 
 int main() {
     blockArray obj = processInput();
-    obj.bfsPrint();
+    // obj.bfsPrint();
+    int nQueries; std::cin >> nQueries;
+    while(nQueries--) {
+        processNextQuery(obj);
+    }
+    
 }
 
 #elif defined(includeBlockArray)
@@ -48,8 +53,18 @@ int main() {
 
 #endif
 
-void processQueries() {
-    
+void processNextQuery(blockArray& obj) {
+    std::string query_t;
+    std::cin >> query_t;
+
+    if(query_t == "UPDATE") {
+        int l, r, v;
+        std::cin >> l >> r >> v;
+    } else if(query_t == "GET") {
+        int i; std::cin >> i;
+        std::cout << obj.get(i) << '\n';
+    }
+
 }
 
 blockArray processInput() {

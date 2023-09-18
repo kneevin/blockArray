@@ -20,7 +20,7 @@ public:
     rangeNode(int value, int leftValue, int rightValue);
     rangeNode(int leftValue, int rightValue);
 
-    int calculateMid(int l, int r);
+    rangeNode* getChild(int i);
 
     void setLeft(rangeNode *leftChild);
     void setRight(rangeNode *rightChild);
@@ -43,6 +43,7 @@ public:
     int getRV() const;
     int getMid() const;
 
+    int calculateMid(int l, int r);
     void printTree(bool onlyLeaves = false, bool bfs = false);
     void print(bool newLine = true);
 

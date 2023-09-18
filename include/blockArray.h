@@ -18,6 +18,7 @@ private:
 public:
     blockArray(std::vector<int>& arr);
     void bfsPrint();
+    int get(int i);
 };
 
 #endif

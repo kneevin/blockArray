@@ -13,3 +13,10 @@ blockArray::blockArray(std::vector<int>& arr) {
 void blockArray::bfsPrint() {
     root->printTree(false, true);
 }
+
+int blockArray::get(int i) {
+    rangeNode *cur = root;
+    while(!cur->isLeaf()) {
+        
+    }
+}
