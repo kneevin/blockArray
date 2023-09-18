@@ -2,7 +2,6 @@
 #ifndef __RANGE_NODE__
 #define __RANGE_NODE__
 
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -75,10 +74,7 @@ public:
             q = new_q;
             std::cout << '\n';
         }
-}
-
-    // static void bfsPrint(rangeNode *root);
-    
+    }   
 };
 
 #endif

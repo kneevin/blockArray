@@ -16,7 +16,7 @@ rangeNode::rangeNode(std::vector<int>& arr) {
 rangeNode* rangeNode::splitToIndex(std::vector<int>& arr, int l, int r) {
     if(l == r) { return new rangeNode(arr[l], l, r); }
 
-    int newMid = (l + r) / 2;
+    int newMid = calculateMid(l, r);
     rangeNode* root = new rangeNode(l, r);
     root->setLeft(splitToIndex(arr, l, newMid));
     root->setRight(splitToIndex(arr, newMid + 1, r));

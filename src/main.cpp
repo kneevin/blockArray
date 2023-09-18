@@ -4,16 +4,18 @@
 #include <deque>
 #include <string>
 #include <cassert>
+#include <blockArray.h>
+#include <queryRange.h>
+
+blockArray processInput();
+
+#define usingQuery
+// #if defined()
+#if defined(usingQuery)
 
 
-#define includeBlockArray
-#if defined(withInput)
-#include <rangeNode.h>
 int main() {
-    int n; std::cin >> n;
-    std::vector<int> arr(n);
-    for(int i = 0; i < n; i++) { std::cin >> arr[i]; std::cout << arr[i] << ' '; }
-    blockArray obj = blockArray(arr);
+    blockArray obj = processInput();
     obj.bfsPrint();
 }
 
@@ -43,6 +45,12 @@ int main() {
     // a.print();
 }
 
-
-
 #endif
+
+blockArray processInput() {
+    int n; std::cin >> n;
+    std::vector<int> arr(n);
+    for(int i = 0; i < n; i++) { std::cin >> arr[i]; }
+
+    return blockArray(arr);
+}

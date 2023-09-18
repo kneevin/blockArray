@@ -5,14 +5,12 @@ cmake ..
 make
 
 while getopts ij opt; do
-    case $opt in
+  case $opt in
     i)
-      ./BLOCKARRAY < ../inputs/size8.txt
-      ;;
+      ./BLOCKARRAY < ../inputs/size8.txt;;
     j)
-    ./BLOCKARRAY < ../inputs/randValues.txt
-      ;;
-    esac
+      ./BLOCKARRAY < ../inputs/randValues.txt;;
+  esac
 done
 
 cd ..
