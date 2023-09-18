@@ -20,16 +20,36 @@ void blockArray::updateRange(int newVal, int newLeft, int newRight) {
 }
 
 void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
-    if(!root) { return; }
-    qr->print();
-    root->print();
+    if(!root || !qr) { return; }
     if(root->equals(qr)) {
         root->setAsLeaf(qr->getValue());
     }
-    if(root->contains(qr)) {
-        return;
+    else if(root->contains(qr)) {
+        rangeNode* cur = findSmallestRange(qr);
+        if(cur->equals(qr)) { updateHelper(cur, qr); return; }
+        queryRange* lqr = new queryRange(qr->getLeft(), cur->getMid(), qr->getValue());
+        queryRange* rqr = new queryRange(cur->getMid() + 1, qr->getRight(), qr->getValue());
+        
+        updateHelper(cur->getLeft(), lqr);
+        updateHelper(cur->getRight(), rqr);
+        
     }
     // rangeNode* nextNode = root->getContainingChild();
+}
+
+// finds first range node that contains both values
+rangeNode* blockArray::findSmallestRange(int l, int r) {
+    rangeNode *cur = root;
+    while(cur && cur->contains(l) && cur->contains(r)) {
+        if(cur->rightContains(l)) { cur = cur->getRight(); }
+        else if(cur->leftContains(r)) { cur = cur->getLeft(); }
+        else { break; }
+    }
+    return cur;
+}
+
+rangeNode* blockArray::findSmallestRange(queryRange* qr) {
+    return findSmallestRange(qr->getLeft(), qr->getRight());
 }
 
 int blockArray::get(int i) {

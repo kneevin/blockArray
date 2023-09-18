@@ -4,8 +4,10 @@ cd build
 cmake ..
 make
 
-while getopts ijk opt; do
+while getopts aijk opt; do
   case $opt in
+    a)
+      ./BLOCKARRAY < ../inputs/imperfectQuery.txt;;
     i)
       ./BLOCKARRAY < ../inputs/size8.txt;;
     j)

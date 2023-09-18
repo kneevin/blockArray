@@ -22,6 +22,9 @@ public:
 
     void updateRange(int newVal, int newLeft, int newRight);
     void updateHelper(rangeNode* root, queryRange* qr);
+
+    rangeNode* findSmallestRange(int l, int r);
+    rangeNode* findSmallestRange(queryRange* qr);
     int get(int i);
 };
 

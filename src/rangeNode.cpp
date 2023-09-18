@@ -60,7 +60,7 @@ void rangeNode::setLeft(rangeNode *leftChild) { left = leftChild; }
 void rangeNode::setRight(rangeNode *rightChild) { right = rightChild; }
 void rangeNode::setValue(int value) { v = value; }
 void rangeNode::setAsLeaf(int value) {
-    setValue(v);
+    setValue(value);
     left = nullptr; right = nullptr;
 }
 
