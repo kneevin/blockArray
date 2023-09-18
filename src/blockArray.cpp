@@ -21,5 +21,6 @@ int blockArray::get(int i) {
         cur = cur->getContainingChild(i);
     }
     cur->print();
+    assert(cur);
     return cur->getRV();
 }
