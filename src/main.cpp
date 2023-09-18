@@ -10,7 +10,8 @@
 blockArray processInput();
 void processNextQuery(blockArray *obj);
 
-#define testInput
+
+#define usingTextFile
 // #if defined()
 #if defined(testInput)
 int main() {
@@ -19,17 +20,21 @@ int main() {
     for(int i = 0; i < n; i++) { arr[i] = i + 1; }
     
     blockArray obj = blockArray(arr);
-    obj.updateRange(65, 0, 9);
-    obj.updateRange(100, 9, 15);
-    obj.updateRange(55, 1, 14);
     obj.updateRange(100, 0, 15);
-    obj.updateRange(-100, 0, 1);
+    obj.updateRange(-100, 0, 0);
     // for(int i = 0; i < n; i++) { std::cout << i << ": " << obj.get(i) << '\n'; }
     obj.bfsPrint();
 }
 
+#elif defined(realTimeCreation)
+int main() {
+    std::cout << "Enter n\n";
+    int n; std::cin >> n;
+    std::vector<int> arr(n);
+    for(int i = 0; i < n; i++) { arr[i] = i + 1; }
+}
 
-#elif defined(usingQuery)
+#elif defined(usingTextFile)
 int main() {
     blockArray obj = processInput();
     // obj.bfsPrint();
@@ -39,18 +44,17 @@ int main() {
         if(query_t == "UPDATE") {
             int l, r, v;
             std::cin >> l >> r >> v;
-            // std::cout << query_t << " [" << l << ", " << r << "]: " << v << '\n';
-            // obj.bfsPrint();
+            std::cout << query_t << " [" << l << ", " << r << "]: " << v << '\n';
             obj.updateRange(v, l, r);
-            obj.bfsPrint();
+            // obj.bfsPrint();
         }
         if(query_t == "GET") {
             int i; std::cin >> i;
             int val = obj.get(i);
-            // std::cout << query_t << '(' << i << "): " << val << std::endl;
+            std::cout << query_t << '(' << i << "): " << val << std::endl;
         }
     }
-    
+    obj.bfsPrint();
 }
 
 #elif defined(includeBlockArray)

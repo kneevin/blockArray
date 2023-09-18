@@ -39,7 +39,7 @@ void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
         if(cur->rightContains(qr->getRight())) {
             queryRange* rqr = new queryRange(cur->getMid() + 1, qr->getRight(), qr->getValue());
             updateHelper(cur->getRight(), rqr);
-        }   
+        }
     }
 }
 
