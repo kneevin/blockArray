@@ -10,7 +10,7 @@
 blockArray processInput();
 void processNextQuery(blockArray *obj);
 
-#define stressTest
+#define usingTextFile
 #if defined(testInput)
 int main() {
     int n = 16;
