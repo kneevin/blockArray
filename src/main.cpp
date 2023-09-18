@@ -124,7 +124,7 @@ public:
 };
 #endif
 
-#define includeHeaders
+#define includeBlockArray
 #if defined(withInput)
 #include <rangeNode.h>
 int main() {
@@ -135,7 +135,17 @@ int main() {
     obj.bfsPrint();
 }
 
-#elif defined(includeHeaders)
+#elif defined(includeBlockArray)
+#include <blockArray.h>
+int main() {
+    int n; std::cin >> n;
+    std::vector<int> arr(n);
+    for(int i = 0; i < n; i++) { std::cin >> arr[i]; std::cout << arr[i] << ' '; }
+    blockArray obj = blockArray(arr);
+    obj.bfsPrint();
+}
+
+#elif defined(includeRange)
 #include <rangeNode.h>
 int main() {
     rangeNode *obj = new rangeNode(0, 1);

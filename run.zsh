@@ -3,5 +3,5 @@
 cd build
 cmake ..
 make
-./BLOCKARRAY
+./BLOCKARRAY < ../inputs/size8.txt
 cd ..
