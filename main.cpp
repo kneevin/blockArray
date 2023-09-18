@@ -36,12 +36,8 @@ public:
         mid = calculateMid(lv, rv);
     }
 
-    rangeNode(int leftValue, int rightValue) {
-        assert(leftValue <= rightValue);
-        lv = leftValue;
-        rv = rightValue;
-        mid = calculateMid(lv, rv);
-    }
+    rangeNode(int leftValue, int rightValue) 
+        : rangeNode(-1, leftValue, rightValue) {}
 
     int calculateMid(int l, int r) { return l + (r - l) / 2; }
 
@@ -52,7 +48,6 @@ public:
     bool contains(int v) const { return lv <= v &&  v < rv; }
     bool leftContains(int v) const {return left->contains(v); }
     bool rightContains(int v) const {return right->contains(v); }
-
 
     bool contains(rangeNode *rng) const { return lv <= rng->getLV() && rng->getRV() <= rv; }
     bool leftContains(rangeNode *rng) const { return left->contains(rng); }
