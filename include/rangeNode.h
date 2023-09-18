@@ -25,6 +25,8 @@ public:
     std::pair<rangeNode*, rangeNode*> splitOnRange(queryRange *qr);
     rangeNode* getContainingChild(int i);
 
+    void splitToChildren();
+
     void setLeft(rangeNode *leftChild);
     void setRight(rangeNode *rightChild);
     void setValue(int value);

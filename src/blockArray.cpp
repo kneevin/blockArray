@@ -25,6 +25,11 @@ void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
 
     rangeNode* cur = findSmallestRange(qr);
     if(cur->equals(qr)) { updateHelper(cur, qr); return; }
+    else if(cur->isLeaf()){
+        cur->splitToChildren();
+        updateHelper(cur, qr);
+        return;
+    }
 
     queryRange *lqr = nullptr, *rqr = nullptr;
 
@@ -36,8 +41,7 @@ void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
     if(cur->rightContains(qr->getRight())) {
         queryRange* rqr = new queryRange(cur->getMid() + 1, qr->getRight(), qr->getValue());
         updateHelper(cur->getRight(), rqr);
-    }
-    
+    }   
 }
 
 // finds first range node that contains both values

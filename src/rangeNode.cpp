@@ -25,6 +25,12 @@ rangeNode* rangeNode::splitToIndex(std::vector<int>& arr, int l, int r) {
     return root;
 }
 
+void rangeNode::splitToChildren() {
+    if(!isLeaf() || lv == rv) { return; }
+    left = new rangeNode(v , lv, mid);
+    right = new rangeNode(v , mid + 1, rv);
+}
+
 rangeNode::rangeNode(int value, int leftValue, int rightValue) {
     assert(leftValue <= rightValue);
     v = value;
