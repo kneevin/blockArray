@@ -20,7 +20,7 @@ public:
     rangeNode(int value, int leftValue, int rightValue);
     rangeNode(int leftValue, int rightValue);
 
-    rangeNode* getChild(int i);
+    rangeNode* getContainingChild(int i);
 
     void setLeft(rangeNode *leftChild);
     void setRight(rangeNode *rightChild);

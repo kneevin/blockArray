@@ -16,7 +16,10 @@ void blockArray::bfsPrint() {
 
 int blockArray::get(int i) {
     rangeNode *cur = root;
-    while(!cur->isLeaf()) {
-        
+    while(cur && !cur->isLeaf()) {
+        cur->print();
+        cur = cur->getContainingChild(i);
     }
+    cur->print();
+    return cur->getRV();
 }

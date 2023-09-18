@@ -8,19 +8,27 @@
 #include <queryRange.h>
 
 blockArray processInput();
-void processNextQuery(blockArray& obj);
+void processNextQuery(blockArray *obj);
 
 #define usingQuery
 // #if defined()
 #if defined(usingQuery)
-
-
 int main() {
     blockArray obj = processInput();
     // obj.bfsPrint();
     int nQueries; std::cin >> nQueries;
     while(nQueries--) {
-        processNextQuery(obj);
+        std::string query_t; std::cin >> query_t;
+        if(query_t == "UPDATE") {
+            int l, r, v;
+            std::cin >> l >> r >> v;
+            std::cout << query_t << '\n';
+        }
+        if(query_t == "GET") {
+            int i; std::cin >> i;
+            int val = obj.get(i);
+            std::cout << query_t << '(' << i << "): " << val << std::endl;
+        }
     }
     
 }
@@ -53,16 +61,17 @@ int main() {
 
 #endif
 
-void processNextQuery(blockArray& obj) {
-    std::string query_t;
-    std::cin >> query_t;
-
+void processNextQuery(blockArray *obj) {
+    std::string query_t; std::cin >> query_t;
     if(query_t == "UPDATE") {
         int l, r, v;
         std::cin >> l >> r >> v;
-    } else if(query_t == "GET") {
+        std::cout << query_t << '\n';
+    }
+    if(query_t == "GET") {
         int i; std::cin >> i;
-        std::cout << obj.get(i) << '\n';
+
+        std::cout << query_t << '(' << i << "): " << obj->get(i) << std::endl;
     }
 
 }

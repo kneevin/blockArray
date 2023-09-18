@@ -36,7 +36,7 @@ rangeNode::rangeNode(int leftValue, int rightValue)
     : rangeNode(-1, leftValue, rightValue) {}
 
 
-rangeNode* rangeNode::getChild(int i) {
+rangeNode* rangeNode::getContainingChild(int i) {
     if(leftContains(i)) { return left; }
     else if(rightContains(i)) { return right; }
     else { return nullptr; }
@@ -48,7 +48,7 @@ void rangeNode::setLeft(rangeNode *leftChild) { left = leftChild; }
 void rangeNode::setRight(rangeNode *rightChild) { right = rightChild; }
 void rangeNode::setValue(int value) { v = value; }
 
-bool rangeNode::contains(int v) const { return lv <= v &&  v < rv; }
+bool rangeNode::contains(int v) const { return lv <= v &&  v <= rv; }
 bool rangeNode::leftContains(int v) const {return left && left->contains(v); }
 bool rangeNode::rightContains(int v) const {return right && right->contains(v); }
 

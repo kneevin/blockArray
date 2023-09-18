@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.5)
 project(BLOCKARRAY)
 
 message("Compiler: ${CMAKE_CXX_COMPILER_ID}")
