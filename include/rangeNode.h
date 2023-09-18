@@ -26,6 +26,7 @@ public:
     void setRight(rangeNode *rightChild);
     void setValue(int value);
 
+    bool equals(rangeNode *rng);
     bool contains(int v) const;
     bool leftContains(int v) const;
     bool rightContains(int v) const;
@@ -43,9 +44,11 @@ public:
     int getRV() const;
     int getMid() const;
 
-    int calculateMid(int l, int r);
+    // int calculateMid(int l, int r);
     void printTree(bool onlyLeaves = false, bool bfs = false);
     void print(bool newLine = true);
+
+    static int calculateMid(int l, int r) { return l + (r - l) / 2; }
 
     static void inorderPrint(rangeNode *node, bool onlyLeaves) {
         if(!node) { return; }

@@ -42,12 +42,11 @@ rangeNode* rangeNode::getContainingChild(int i) {
     else { return nullptr; }
 }
 
-int rangeNode::calculateMid(int l, int r) { return l + (r - l) / 2; }
-
 void rangeNode::setLeft(rangeNode *leftChild) { left = leftChild; }
 void rangeNode::setRight(rangeNode *rightChild) { right = rightChild; }
 void rangeNode::setValue(int value) { v = value; }
 
+bool rangeNode::equals(rangeNode *rng) { return lv == rng->getLV() && rv == rng->getRV(); }
 bool rangeNode::contains(int v) const { return lv <= v &&  v <= rv; }
 bool rangeNode::leftContains(int v) const {return left && left->contains(v); }
 bool rangeNode::rightContains(int v) const {return right && right->contains(v); }

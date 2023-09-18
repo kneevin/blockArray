@@ -18,6 +18,8 @@ private:
 public:
     blockArray(std::vector<int>& arr);
     void bfsPrint();
+
+    void queryRange(int newVal, int newLeft, int newRight);
     int get(int i);
 };
 

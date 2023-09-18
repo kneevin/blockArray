@@ -10,8 +10,8 @@ blockArray::blockArray(std::vector<int>& arr) {
     root = new rangeNode(arr);
 }
 
-void blockArray::bfsPrint() {
-    root->printTree(false, true);
+void blockArray::queryRange(int newVal, int newLeft, int newRight) {
+    // int mid = 
 }
 
 int blockArray::get(int i) {
@@ -23,4 +23,8 @@ int blockArray::get(int i) {
     cur->print();
     assert(cur);
     return cur->getRV();
+}
+
+void blockArray::bfsPrint() {
+    root->printTree(false, true);
 }
