@@ -25,6 +25,7 @@ public:
     void setLeft(rangeNode *leftChild);
     void setRight(rangeNode *rightChild);
     void setValue(int value);
+    void setAsLeaf(int value);
 
     bool equals(rangeNode *rng);
     bool contains(int v) const;

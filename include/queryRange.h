@@ -2,8 +2,6 @@
 #ifndef __QUERY_RANGE__
 #define __QUERY_RANGE__
 
-#include <blockArray.h>
-#include <rangeNode.h>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -18,6 +16,8 @@ public:
     queryRange(int newLeft, int newRight, int newValue);
 
     int getValue() const;
+    int getLeft() const;
+    int getRight() const;
 };
 
 #endif

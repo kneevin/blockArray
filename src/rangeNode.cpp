@@ -45,6 +45,10 @@ rangeNode* rangeNode::getContainingChild(int i) {
 void rangeNode::setLeft(rangeNode *leftChild) { left = leftChild; }
 void rangeNode::setRight(rangeNode *rightChild) { right = rightChild; }
 void rangeNode::setValue(int value) { v = value; }
+void rangeNode::setAsLeaf(int value) {
+    setValue(v);
+    left = nullptr; right = nullptr;
+}
 
 bool rangeNode::equals(int l, int r) { return lv == l && rv == r; }
 bool rangeNode::contains(int v) const { return lv <= v &&  v <= rv; }

@@ -13,14 +13,16 @@ blockArray::blockArray(std::vector<int>& arr) {
     root = new rangeNode(arr);
 }
 
-void blockArray::queryRange(int newVal, int newLeft, int newRight) {
-    int mid = rangeNode::calculateMid(newLeft, newRight);
+void blockArray::updateRange(int newVal, int newLeft, int newRight) {
+    queryRange* qr = new queryRange(newVal, newLeft, newRight);
     rangeNode *cur = root;
-
+    updateHelper(cur, qr);
 }
 
-void blockArray::_queryRange(rangeNode* root, int newLeft, int newRight) {
-    if(root->equals(newLeft, newRight)) {}
+void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
+    if(root->equals(qr->getLeft(), qr->getRight())) {
+        
+    }
 }
 
 int blockArray::get(int i) {

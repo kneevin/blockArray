@@ -2,6 +2,7 @@
 #ifndef __BLOCK_ARRAY__
 #define __BLOCK_ARRAY__
 
+#include <queryRange.h>
 #include <rangeNode.h>
 #include <iostream>
 #include <vector>
@@ -19,8 +20,8 @@ public:
     blockArray(std::vector<int>& arr);
     void bfsPrint();
 
-    void queryRange(int newVal, int newLeft, int newRight);
-    void _queryRange(rangeNode* root, int newLeft, int newRight);
+    void updateRange(int newVal, int newLeft, int newRight);
+    void updateHelper(rangeNode* root, queryRange* qr);
     int get(int i);
 };
 
