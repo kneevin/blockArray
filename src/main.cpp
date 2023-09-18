@@ -22,7 +22,7 @@ int main() {
         if(query_t == "UPDATE") {
             int l, r, v;
             std::cin >> l >> r >> v;
-            std::cout << query_t << '\n';
+            std::cout << query_t << " [" << l << ", " << r << "]: " << v << '\n';
         }
         if(query_t == "GET") {
             int i; std::cin >> i;

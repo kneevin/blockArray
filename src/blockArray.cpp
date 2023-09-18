@@ -1,9 +1,12 @@
+#include <queryRange.h>
 #include <blockArray.h>
-#include <iostream>
-#include <vector>
+#include <rangeNode.h>
+
 #include <algorithm>
-#include <deque>
+#include <iostream>
 #include <string>
+#include <vector>
+#include <deque>
 
 blockArray::blockArray(std::vector<int>& arr) {
     size = arr.size();
@@ -11,7 +14,13 @@ blockArray::blockArray(std::vector<int>& arr) {
 }
 
 void blockArray::queryRange(int newVal, int newLeft, int newRight) {
-    // int mid = 
+    int mid = rangeNode::calculateMid(newLeft, newRight);
+    rangeNode *cur = root;
+
+}
+
+void blockArray::_queryRange(rangeNode* root, int newLeft, int newRight) {
+    if(root->equals(newLeft, newRight)) {}
 }
 
 int blockArray::get(int i) {

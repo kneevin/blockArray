@@ -20,6 +20,7 @@ public:
     void bfsPrint();
 
     void queryRange(int newVal, int newLeft, int newRight);
+    void _queryRange(rangeNode* root, int newLeft, int newRight);
     int get(int i);
 };
 

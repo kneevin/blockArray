@@ -31,6 +31,7 @@ public:
     bool leftContains(int v) const;
     bool rightContains(int v) const;
 
+    bool equals(int l, int r);
     bool contains(rangeNode *rng) const;
     bool leftContains(rangeNode *rng) const;
     bool rightContains(rangeNode *rng) const;

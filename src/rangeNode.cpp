@@ -46,11 +46,12 @@ void rangeNode::setLeft(rangeNode *leftChild) { left = leftChild; }
 void rangeNode::setRight(rangeNode *rightChild) { right = rightChild; }
 void rangeNode::setValue(int value) { v = value; }
 
-bool rangeNode::equals(rangeNode *rng) { return lv == rng->getLV() && rv == rng->getRV(); }
+bool rangeNode::equals(int l, int r) { return lv == l && rv == r; }
 bool rangeNode::contains(int v) const { return lv <= v &&  v <= rv; }
 bool rangeNode::leftContains(int v) const {return left && left->contains(v); }
 bool rangeNode::rightContains(int v) const {return right && right->contains(v); }
 
+bool rangeNode::equals(rangeNode *rng) { return lv == rng->getLV() && rv == rng->getRV(); }
 bool rangeNode::contains(rangeNode *rng) const { return contains(rng->getLV()) && contains(rng->getRV()); }
 bool rangeNode::leftContains(rangeNode *rng) const { return left->contains(rng); }
 bool rangeNode::rightContains(rangeNode *rng) const { return right->contains(rng); }

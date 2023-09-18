@@ -13,9 +13,11 @@
 
 class queryRange {
 private:
-    int l, r, v;
+    int l, r, v, mid;
 public:
     queryRange(int newLeft, int newRight, int newValue);
+
+    int getValue() const;
 };
 
 #endif
