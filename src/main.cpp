@@ -11,7 +11,7 @@ blockArray processInput();
 void processNextQuery(blockArray *obj);
 
 
-#define usingTextFile
+#define stressTest
 // #if defined()
 #if defined(testInput)
 int main() {
@@ -53,6 +53,29 @@ int main() {
             int val = obj.get(i);
             std::cout << query_t << '(' << i << "): " << val << std::endl;
         }
+    }
+
+    // for(int i = 0; i < 16; i++) { std::cout << i << ": " << obj.get(i) << '\n'; }
+    obj.bfsPrint();
+
+}
+
+#elif defined(stressTest)
+#include <random>
+
+int main() {
+    int n = 4096;
+    std::vector<int> arr(n);
+    for(int i = 0; i < n; i++) { arr[i] = i; }
+    blockArray obj = blockArray(arr);
+
+    std::random_device rd; // obtain a random number from hardware
+    std::mt19937 gen(rd()); // seed the generator
+    std::uniform_int_distribution<> distr(0, n - 1); // define the range
+    
+    while(n--) {
+        int x = distr(gen), y = distr(gen);
+        obj.updateRange(distr(gen), std::min(x, y), std::max(x, y));
     }
     obj.bfsPrint();
 }
