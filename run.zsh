@@ -3,5 +3,16 @@
 cd build
 cmake ..
 make
-./BLOCKARRAY < ../inputs/size8.txt
+
+while getopts ij opt; do
+    case $opt in
+    i)
+      ./BLOCKARRAY < ../inputs/size8.txt
+      ;;
+    j)
+    ./BLOCKARRAY < ../inputs/randValues.txt
+      ;;
+    esac
+done
+
 cd ..
