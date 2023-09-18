@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include<deque>
 #include <string>
 #include <cassert>
 
@@ -11,41 +12,51 @@ private:
 public:
     rangeNode(std::vector<int>& arr) {
         int n = arr.size();
-        v = n; lv = 0; rv = n - 1; mid = (lv + rv) / 2;
+        v = n; lv = 0; rv = n - 1; mid = calculateMid(lv, rv);
         left = splitToIndex(arr, lv, mid);
         right = splitToIndex(arr, mid + 1, rv);
     }
     
     rangeNode* splitToIndex(std::vector<int>& arr, int l, int r) {
         if(l == r) { return new rangeNode(arr[l], l, r); }
+
         int newMid = (l + r) / 2;
         rangeNode* root = new rangeNode(l, r);
         root->setLeft(splitToIndex(arr, l, newMid));
         root->setRight(splitToIndex(arr, newMid + 1, r));
+
         return root;
     }
 
     rangeNode(int value, int leftValue, int rightValue) {
+        assert(leftValue <= rightValue);
         v = value;
         lv = leftValue;
         rv = rightValue;
-        mid = (lv + rv) / 2;
+        mid = calculateMid(lv, rv);
     }
 
     rangeNode(int leftValue, int rightValue) {
+        assert(leftValue <= rightValue);
         lv = leftValue;
         rv = rightValue;
-        mid = (lv + rv) / 2;
+        mid = calculateMid(lv, rv);
     }
+
+    int calculateMid(int l, int r) { return l + (r - l) / 2; }
 
     void setLeft(rangeNode *leftChild) { left = leftChild; }
     void setRight(rangeNode *rightChild) { right = rightChild; }
     void setValue(int value) { v = value; }
 
     bool contains(int v) const { return lv <= v &&  v < rv; }
-    bool contains(rangeNode *rng) const {
-        return lv <= rng->getLV() && rng->getRV() <= rv;
-    }
+    bool leftContains(int v) const {return left->contains(v); }
+    bool rightContains(int v) const {return right->contains(v); }
+
+
+    bool contains(rangeNode *rng) const { return lv <= rng->getLV() && rng->getRV() <= rv; }
+    bool leftContains(rangeNode *rng) const { return left->contains(rng); }
+    bool rightContains(rangeNode *rng) const { return right->contains(rng); }
 
     bool isLeaf() const { return !left && !right; }
     int getValue() const {
@@ -59,16 +70,12 @@ public:
     int getRV() const { return rv; }
     int getMid() const { return mid; }
 
-    void splitChildren() {
-        left = new rangeNode(v, lv, mid);
-        right = new rangeNode(v, mid + 1, rv);
+    void printTree(bool onlyLeaves = false, bool bfs = false) {
+        if(bfs) { bfsPrint(this); }
+        else { inorderPrint(this, onlyLeaves); }
     }
 
-    void printTree(bool onlyLeaves = false) {
-        inorderPrint(this, onlyLeaves);
-    }
-
-    void inorderPrint(rangeNode *node, bool onlyLeaves) {
+    static void inorderPrint(rangeNode *node, bool onlyLeaves) {
         if(!node) { return; }
         inorderPrint(node->getLeft(), onlyLeaves);
         if(onlyLeaves) {
@@ -77,6 +84,25 @@ public:
             node->print();
         }
         inorderPrint(node->getRight(), onlyLeaves);
+    }
+
+    static void bfsPrint(rangeNode *root) {
+        std::deque<rangeNode*> q;
+        int lvl = 0;
+        q.push_back(root);
+        while(!q.empty()) {
+            std::deque<rangeNode*> new_q;
+            std::cout << "Level " << lvl++ << '\n';
+            while(!q.empty()) {
+                rangeNode *cur = q.back(); q.pop_back();
+                if(!cur) { continue; }
+                cur->print();
+                new_q.push_back(cur->getLeft());
+                new_q.push_back(cur->getRight());
+            }
+            q = new_q;
+            std::cout << '\n';
+        }
     }
 
     void print(bool newLine = true) {
@@ -94,7 +120,6 @@ public:
     blockArray(std::vector<int>& arr) {
         size = arr.size();
         root = new rangeNode(arr);
-        root->printTree(true);
     }
 
     void inorderPrint(rangeNode* node) {
@@ -106,6 +131,7 @@ public:
 
     void print() {
         inorderPrint(root);
+        root->printTree(false, true);
     }
 
 
@@ -116,8 +142,9 @@ public:
 int main() {
     int n; std::cin >> n;
     std::vector<int> arr(n);
-    for(int i = 0; i < n; i++) { std::cin >> arr[i]; }
+    for(int i = 0; i < n; i++) { std::cin >> arr[i]; std::cout << arr[i] << ' '; }
     blockArray obj = blockArray(arr);
+    obj.print();
 }
 
 #elif defined(noInput)
