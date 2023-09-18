@@ -21,20 +21,23 @@ void blockArray::updateRange(int newVal, int newLeft, int newRight) {
 
 void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
     if(!root || !qr) { return; }
-    if(root->equals(qr)) {
-        root->setAsLeaf(qr->getValue());
-    }
-    else if(root->contains(qr)) {
-        rangeNode* cur = findSmallestRange(qr);
-        if(cur->equals(qr)) { updateHelper(cur, qr); return; }
+    if(root->equals(qr)) { root->setAsLeaf(qr->getValue()); return; }
+
+    rangeNode* cur = findSmallestRange(qr);
+    if(cur->equals(qr)) { updateHelper(cur, qr); return; }
+
+    queryRange *lqr = nullptr, *rqr = nullptr;
+
+    if(cur->leftContains(qr->getLeft())) {
         queryRange* lqr = new queryRange(qr->getLeft(), cur->getMid(), qr->getValue());
-        queryRange* rqr = new queryRange(cur->getMid() + 1, qr->getRight(), qr->getValue());
-        
         updateHelper(cur->getLeft(), lqr);
-        updateHelper(cur->getRight(), rqr);
-        
     }
-    // rangeNode* nextNode = root->getContainingChild();
+    
+    if(cur->rightContains(qr->getRight())) {
+        queryRange* rqr = new queryRange(cur->getMid() + 1, qr->getRight(), qr->getValue());
+        updateHelper(cur->getRight(), rqr);
+    }
+    
 }
 
 // finds first range node that contains both values

@@ -79,7 +79,7 @@ public:
             std::deque<rangeNode*> new_q;
             std::cout << "Level " << lvl++ << '\n';
             while(!q.empty()) {
-                rangeNode *cur = q.back(); q.pop_back();
+                rangeNode *cur = q.front(); q.pop_front();
                 cur->print();
                 if(cur->getLeft()) { new_q.push_back(cur->getLeft()); }
                 if(cur->getRight()) { new_q.push_back(cur->getRight()); }
