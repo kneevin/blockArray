@@ -26,6 +26,7 @@ public:
     rangeNode* findSmallestRange(int l, int r);
     rangeNode* findSmallestRange(queryRange* qr);
     int get(int i);
+    // rangeNode* get
 };
 
 #endif

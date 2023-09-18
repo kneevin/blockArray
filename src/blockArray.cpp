@@ -61,9 +61,12 @@ rangeNode* blockArray::findSmallestRange(queryRange* qr) {
 
 int blockArray::get(int i) {
     rangeNode *cur = root;
-    while(cur && !cur->isLeaf()) { cur = cur->getContainingChild(i); }
+    while(cur && !cur->isLeaf()) {
+        if(cur->leftContains(i)) { cur = cur->getLeft(); }
+        else { cur = cur->getRight(); } // cur->rightContains(i)
+    }
     assert(cur);
-    return cur->getRV();
+    return cur->getValue();
 }
 
 void blockArray::bfsPrint() {

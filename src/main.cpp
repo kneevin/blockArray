@@ -10,9 +10,21 @@
 blockArray processInput();
 void processNextQuery(blockArray *obj);
 
-#define usingQuery
+#define testInput
 // #if defined()
-#if defined(usingQuery)
+#if defined(testInput)
+int main() {
+    int n = 16;
+    std::vector<int> arr(n);
+    for(int i = 0; i < n; i++) { arr[i] = i + 1; }
+    
+    blockArray obj = blockArray(arr);
+    obj.updateRange(65, 0, 9);
+    for(int i = 0; i < n; i++) { std::cout << i << ": " << obj.get(i) << '\n'; }
+}
+
+
+#elif defined(usingQuery)
 int main() {
     blockArray obj = processInput();
     // obj.bfsPrint();
