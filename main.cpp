@@ -95,10 +95,10 @@ public:
             std::cout << "Level " << lvl++ << '\n';
             while(!q.empty()) {
                 rangeNode *cur = q.back(); q.pop_back();
-                if(!cur) { continue; }
                 cur->print();
-                new_q.push_back(cur->getLeft());
-                new_q.push_back(cur->getRight());
+                if(cur->getLeft()) { new_q.push_back(cur->getLeft()); }
+                if(cur->getRight()) { new_q.push_back(cur->getRight()); }
+                
             }
             q = new_q;
             std::cout << '\n';
@@ -122,19 +122,9 @@ public:
         root = new rangeNode(arr);
     }
 
-    void inorderPrint(rangeNode* node) {
-        if(!node) { return; }
-        // inorderPrint(root->getLeft());
-        node->print();
-        // inorderPrint(root->getRight());
-    }
-
-    void print() {
-        inorderPrint(root);
+    void bfsPrint() {
         root->printTree(false, true);
     }
-
-
 };
 
 #define withInput
@@ -144,7 +134,7 @@ int main() {
     std::vector<int> arr(n);
     for(int i = 0; i < n; i++) { std::cin >> arr[i]; std::cout << arr[i] << ' '; }
     blockArray obj = blockArray(arr);
-    obj.print();
+    obj.bfsPrint();
 }
 
 #elif defined(noInput)
