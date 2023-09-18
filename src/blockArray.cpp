@@ -21,8 +21,12 @@ void blockArray::updateRange(int newVal, int newLeft, int newRight) {
 
 void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
     if(root->equals(qr->getLeft(), qr->getRight())) {
-        
+        root->setAsLeaf(qr->getValue());
     }
+    if(root->contains(qr->getLeft()) && root->contains(qr->getRight())) {
+
+    }
+    // rangeNode* nextNode = root->getContainingChild();
 }
 
 int blockArray::get(int i) {

@@ -2,6 +2,7 @@
 #ifndef __RANGE_NODE__
 #define __RANGE_NODE__
 
+#include <queryRange.h>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -20,6 +21,7 @@ public:
     rangeNode(int value, int leftValue, int rightValue);
     rangeNode(int leftValue, int rightValue);
 
+    std::pair<rangeNode*, rangeNode*> splitOnRange(queryRange *qr);
     rangeNode* getContainingChild(int i);
 
     void setLeft(rangeNode *leftChild);
@@ -27,15 +29,20 @@ public:
     void setValue(int value);
     void setAsLeaf(int value);
 
-    bool equals(rangeNode *rng);
+    bool equals(int l, int r);
     bool contains(int v) const;
     bool leftContains(int v) const;
     bool rightContains(int v) const;
 
-    bool equals(int l, int r);
+    bool equals(rangeNode *rng);    
     bool contains(rangeNode *rng) const;
     bool leftContains(rangeNode *rng) const;
     bool rightContains(rangeNode *rng) const;
+
+    bool equals(queryRange *qr);
+    bool contains(queryRange *qr) const;
+    bool leftContains(queryRange *qr) const;
+    bool rightContains(queryRange *qr) const;
 
     bool isLeaf() const;
     int getValue() const;

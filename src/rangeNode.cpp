@@ -1,3 +1,4 @@
+#include <queryRange.h>
 #include <rangeNode.h>
 #include <iostream>
 #include <vector>
@@ -35,6 +36,13 @@ rangeNode::rangeNode(int value, int leftValue, int rightValue) {
 rangeNode::rangeNode(int leftValue, int rightValue) 
     : rangeNode(-1, leftValue, rightValue) {}
 
+// need to resize if imperfect
+std::pair<rangeNode*, rangeNode*> rangeNode::splitOnRange(queryRange *qr) {
+    if(!contains(qr)) {
+
+        return leftContains(qr) ? 
+    }
+}
 
 rangeNode* rangeNode::getContainingChild(int i) {
     if(leftContains(i)) { return left; }
@@ -59,6 +67,14 @@ bool rangeNode::equals(rangeNode *rng) { return lv == rng->getLV() && rv == rng-
 bool rangeNode::contains(rangeNode *rng) const { return contains(rng->getLV()) && contains(rng->getRV()); }
 bool rangeNode::leftContains(rangeNode *rng) const { return left->contains(rng); }
 bool rangeNode::rightContains(rangeNode *rng) const { return right->contains(rng); }
+
+bool rangeNode::equals(queryRange *qr) { return lv == qr->getLeft() && rv == qr->getRight(); }
+bool rangeNode::contains(queryRange *qr) const { 
+    return contains(qr->getLeft()) && contains(qr->getRight());
+}
+bool rangeNode::leftContains(queryRange *qr) const { return left->contains(qr); }
+bool rangeNode::rightContains(queryRange *qr) const { return right->contains(qr); }
+
 
 bool rangeNode::isLeaf() const { return !left && !right; }
 int rangeNode::getValue() const {
