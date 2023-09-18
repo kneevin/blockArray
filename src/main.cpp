@@ -22,12 +22,15 @@ int main() {
         if(query_t == "UPDATE") {
             int l, r, v;
             std::cin >> l >> r >> v;
-            std::cout << query_t << " [" << l << ", " << r << "]: " << v << '\n';
+            // std::cout << query_t << " [" << l << ", " << r << "]: " << v << '\n';
+            // obj.bfsPrint();
+            obj.updateRange(v, l, r);
+            obj.bfsPrint();
         }
         if(query_t == "GET") {
             int i; std::cin >> i;
             int val = obj.get(i);
-            std::cout << query_t << '(' << i << "): " << val << std::endl;
+            // std::cout << query_t << '(' << i << "): " << val << std::endl;
         }
     }
     

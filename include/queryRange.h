@@ -15,6 +15,9 @@ private:
 public:
     queryRange(int newLeft, int newRight, int newValue);
 
+    std::pair<queryRange*, queryRange*> queryRange::splitOnIndex(int i);
+    std::pair<queryRange*, queryRange*> splitOnMiddle();
+    
     int getValue() const;
     int getLeft() const;
     int getRight() const;

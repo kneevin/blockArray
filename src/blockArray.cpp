@@ -20,22 +20,21 @@ void blockArray::updateRange(int newVal, int newLeft, int newRight) {
 }
 
 void blockArray::updateHelper(rangeNode* root, queryRange* qr) {
-    if(root->equals(qr->getLeft(), qr->getRight())) {
+    if(root->equals(qr)) {
         root->setAsLeaf(qr->getValue());
     }
     if(root->contains(qr->getLeft()) && root->contains(qr->getRight())) {
-
+        std::pair<rangeNode*, rangeNode*> pairs = root->splitOnRange(qr);
+        root->setLeft(pairs.first);
+        root->setRight(pairs.second);
+        updateHelper(root->getLeft(), )
     }
     // rangeNode* nextNode = root->getContainingChild();
 }
 
 int blockArray::get(int i) {
     rangeNode *cur = root;
-    while(cur && !cur->isLeaf()) {
-        cur->print();
-        cur = cur->getContainingChild(i);
-    }
-    cur->print();
+    while(cur && !cur->isLeaf()) { cur = cur->getContainingChild(i); }
     assert(cur);
     return cur->getRV();
 }

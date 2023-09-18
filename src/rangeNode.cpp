@@ -38,10 +38,16 @@ rangeNode::rangeNode(int leftValue, int rightValue)
 
 // need to resize if imperfect
 std::pair<rangeNode*, rangeNode*> rangeNode::splitOnRange(queryRange *qr) {
+    assert(!equals(qr));
     if(!contains(qr)) {
-
-        return leftContains(qr) ? 
+        if(left->equals(qr)) {
+            return {new rangeNode(qr->getValue(), qr->getLeft(), qr->getRight()), nullptr};
+        }
+        if(right->equals(qr)) {
+            return {nullptr, new rangeNode(qr->getValue(), qr->getLeft(), qr->getRight())};
+        }
     }
+    return {nullptr, nullptr};
 }
 
 rangeNode* rangeNode::getContainingChild(int i) {
