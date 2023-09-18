@@ -5,6 +5,7 @@
 #include <string>
 #include <cassert>
 
+#if defined(inSrcClass)
 class rangeNode {
 private:
     int v, lv, rv, mid; // range = [lv, rv]
@@ -121,8 +122,9 @@ public:
         root->printTree(false, true);
     }
 };
+#endif
 
-#define withInput
+#define includeHeaders
 #if defined(withInput)
 int main() {
     int n; std::cin >> n;
@@ -131,6 +133,13 @@ int main() {
     blockArray obj = blockArray(arr);
     obj.bfsPrint();
 }
+
+#elif defined(includeHeaders)
+#include <rangeNode.h>
+int main() {
+    std::cout << "yeah\n";
+}
+
 
 #elif defined(noInput)
 int main() {
